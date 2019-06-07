@@ -5,7 +5,7 @@ Showing Weather forecast using SwiftUI + Combine.framework.
 Select a area, and show daily forecasts, using [OpenWeather API](https://openweathermap.org/api)
 
 <p align="center">
-<img src="./img/img.png" width="480">
+<img src="./img/capture.gif" width="240">
 </p>
 
 ## Highlight of this app
@@ -40,18 +40,18 @@ If you don't want to create OpenWeather account, you can use local-stored-json i
 
 ## file structure
 
-+ /
-  +- Constants.swift : API-key.Please set your own key
-  +- RootView.swift : view at app-launching
-  +- Theme.swift : Color list
-  +- asset/ : cities and sample json
-  +- Entity/
-  +- Network/
-  +- PartsView/  : common views
-  +- Repository/
-  +- Utils/
-  +- View
-  += ViewModel
++ /  
+  +- Constants.swift : API-key.Please set your own key  
+  +- RootView.swift : view at app-launching  
+  +- Theme.swift : Color list  
+  +- asset/ : cities and sample json  
+  +- Entity/  
+  +- Network/  
+  +- PartsView/  : common views  
+  +- Repository/  
+  +- Utils/  
+  +- View  
+  += ViewModel  
 
 ## app structure
 
