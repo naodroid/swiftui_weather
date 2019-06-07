@@ -8,18 +8,33 @@
 
 import Foundation
 
-struct Weather: Codable {
-    let forecasts: [Forecast]
+// for open weather
+struct Weather5Day: Codable {
+    let list: [Forecast]
 }
 struct Forecast: Codable {
-    let dateLabel: String?
-    let image: IconImage?
+    let dt: Int64
+    let main: Detail
+    let weather: [Weather] //this is array, but containts 1 element.
 }
-struct IconImage: Codable {
-    let width: Double
-    let height: Double
-    let url: String
-    let title: String
+struct Detail: Codable {
+    let temp: Double
+    let temp_min: Double
+    let temp_max: Double
+    let pressure: Double
+    let sea_level: Double
+    let grnd_level: Double
+    let humidity: Double
+    let temp_kf: Double
 }
-
+struct Weather: Codable {
+    let id: Int64
+    let main: String
+    let description: String
+    let icon: String
+}
+struct Wind: Codable {
+    let speed: Double
+    let degree: Double
+}
 

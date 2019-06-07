@@ -26,15 +26,13 @@ func httpRequest(url: String) -> AnyPublisher<Data, Error> {
         }
         let url = compnents.url
         let task = URLSession.shared.dataTask(with: url!) { data, response, error in
-            DispatchQueue.main.async {
-                if let data = data {
-                    _ = subscriber.receive(data)
-                    subscriber.receive(completion: .finished)
-                } else if let e = error {
-                    subscriber.receive(completion: .failure(HttpError.connectionError(e)))
-                } else {
-                    subscriber.receive(completion: .failure(HttpError.unknownError))
-                }
+            if let data = data {
+                _ = subscriber.receive(data)
+                subscriber.receive(completion: .finished)
+            } else if let e = error {
+                subscriber.receive(completion: .failure(HttpError.connectionError(e)))
+            } else {
+                subscriber.receive(completion: .failure(HttpError.unknownError))
             }
         }
         task.resume()
@@ -46,9 +44,9 @@ func httpRequestJson<T: Decodable>(url: String) -> AnyPublisher<T, Error> {
     return httpRequest(url: url)
         .eraseToAnyPublisher()
         .map { (data) -> T in
+            print(String(data: data, encoding: .utf8)!)
             return try! JSONDecoder().decode(T.self, from: data)
         }
         .eraseToAnyPublisher()
-
-    
 }
+

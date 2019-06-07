@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import Combine
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -15,8 +16,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        let theme = ColorTheme()
         let window = UIWindow(frame: UIScreen.main.bounds)
-        let root = UIHostingController(rootView: AreaListView())
+        let root = TraitObservingViewController(rootView: RootView().environmentObject(theme))
+        root.theme = theme
         window.rootViewController = root
         self.window = window
         window.makeKeyAndVisible()
