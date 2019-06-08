@@ -21,6 +21,7 @@ Select a area, and show daily forecasts, using [OpenWeather API](https://openwea
   * detect tap and add pin at tap position
 * Sample implementation of `MainThreadScheduler`
   * but, this won't work with delay-call.
+* Adapt dark mode with asset-catalog-color
 
 ## how to run
 
@@ -84,8 +85,5 @@ Basic Structure
 
 ## Known issues
 
-* Dark-mode adaption
-  * Colors from asset don't work when using `.colorScheme(.dark)`
-  * But it will work when after switching simulater setting, only once.
 * MainThreadScheduler won't work with delay-time
   * when I call action() an `DispatchQueue.main.async`, nothing happens.

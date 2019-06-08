@@ -14,36 +14,52 @@ import Combine
 // I haven't found other methods to do same thing.
 class TraitObservingViewController<T>: UIHostingController<T> where T: View {
     var theme: ColorTheme?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        theme?.currentTrait = self.traitCollection
+    }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        if let t = self.theme {
-            t.didChange.send(t)
-        }
+        self.theme?.currentTrait = self.traitCollection
     }
 }
 class ColorTheme: BindableObject {
     let didChange = PassthroughSubject<ColorTheme, Never>()
+    fileprivate var currentTrait: UITraitCollection? {
+        didSet {
+            self.didChange.send(self)
+        }
+    }
+    
+    private func resolve(_ color: UIColor) -> Color {
+        guard let t = self.currentTrait else {
+            return color.toSwiftUI()
+        }
+        return color.resolvedColor(with: t).toSwiftUI()
+    }
+    
 
     /// this color works when you switch dark-mode.
     /// but, the color will be reset to light-color after chaning tab
     /// .colorScheme(.dark) also won't work.
     var tabBgColor: Color {
-        Color("tabBgColor")
+        self.resolve(UIColor(named: "tabBgColor")!)
     }
     var tabFrameColor: Color {
-        Color("tabFrameColor")
+        self.resolve(UIColor(named: "tabFrameColor")!)
     }
     var foregronud: Color {
-        UIColor.label.toSwiftUI()
+        self.resolve(UIColor.label)
     }
     var foregronudLight: Color {
-        UIColor.secondaryLabel.toSwiftUI()
+        self.resolve(UIColor.secondaryLabel)
     }
     var foregronudReversed: Color {
-        UIColor.tertiaryLabel.toSwiftUI()
+        self.resolve(UIColor.tertiaryLabel)
     }
     var background: Color {
-        UIColor.systemBackground.toSwiftUI()
+        self.resolve(UIColor.systemBackground)
     }
 }
 //convert to SwiftUI-Color
