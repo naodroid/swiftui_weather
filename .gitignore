@@ -3,9 +3,8 @@
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 ##
-Constants_local.Swift
 city_json/*.json
-
+Config.plist
 
 ## User settings
 xcuserdata/

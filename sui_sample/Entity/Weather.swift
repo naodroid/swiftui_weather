@@ -19,13 +19,13 @@ struct Forecast: Codable {
 }
 struct Detail: Codable {
     let temp: Double
-    let temp_min: Double
-    let temp_max: Double
-    let pressure: Double
-    let sea_level: Double
-    let grnd_level: Double
-    let humidity: Double
-    let temp_kf: Double
+    let tempMin: Double?
+    let tempMax: Double?
+    let pressure: Double?
+    let seaLevel: Double?
+    let grndLevel: Double?
+    let humidity: Double?
+    let tempKf: Double?
 }
 struct Weather: Codable {
     let id: Int64

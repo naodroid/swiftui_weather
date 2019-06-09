@@ -40,12 +40,14 @@ func httpRequest(url: String) -> AnyPublisher<Data, Error> {
     .eraseToAnyPublisher()
 }
 
-func httpRequestJson<T: Decodable>(url: String) -> AnyPublisher<T, Error> {
+func httpRequestJson<T: Decodable>(url: String,
+                                   keyStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) -> AnyPublisher<T, Error> {
     return httpRequest(url: url)
         .eraseToAnyPublisher()
         .map { (data) -> T in
-            print(String(data: data, encoding: .utf8)!)
-            return try! JSONDecoder().decode(T.self, from: data)
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = keyStrategy
+            return try! decoder.decode(T.self, from: data)
         }
         .eraseToAnyPublisher()
 }

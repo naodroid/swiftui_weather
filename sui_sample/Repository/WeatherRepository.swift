@@ -33,21 +33,33 @@ final class WeatherRepositoryImpl: WeatherRepository {
 
     ///
     func fetch5DayForecast(city: City) -> Weather5DayPublisher {
+        guard let key = Config.apiKey else {
+            //fetch from resource, forced
+            print("Use Local resource.")
+            print("If you want to use Network-API, please rename Copfig-sample.plist to Copfig.plist, and write your api key.")
+            return resourceRequestJson(fileName: "5day_sample.json")
+        }
         var url = "https://api.openweathermap.org/data/2.5/forecast"
         url += "?id=\(city.id)"
-        url += "&appid=\(Constants.apiKey)"
+        url += "&appid=\(key)"
         url += "&units=metrics"
-        return httpRequestJson(url: url)
+        return httpRequestJson(url: url, keyStrategy: .convertFromSnakeCase)
         //fetch from resource
         //return resourceRequestJson(fileName: "5day_sample.json")
     }
     func fetch5DayForecast(lat: Double, lon: Double) -> Weather5DayPublisher {
+        guard let key = Config.apiKey else {
+            //fetch from resource, forced
+            print("Use Local resource.")
+            print("If you want to use Network-API, please rename Copfig-sample.plist to Copfig.plist, and write your api key.")
+            return resourceRequestJson(fileName: "5day_sample.json")
+        }
         var url = "https://api.openweathermap.org/data/2.5/forecast"
         url += String(format: "?lat=%.6f&lon=%.6f",lat, lon)
-        url += "&appid=\(Constants.apiKey)"
+        url += "&appid=\(key)"
         url += "&units=metrics"
 
-        return httpRequestJson(url: url)
+        return httpRequestJson(url: url, keyStrategy: .convertFromSnakeCase)
         //fetch from resource
         //return resourceRequestJson(fileName: "5day_sample.json")
     }

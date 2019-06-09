@@ -21,28 +21,28 @@ Select a area, and show daily forecasts, using [OpenWeather API](https://openwea
   * detect tap and add pin at tap position
 * Sample implementation of `MainThreadScheduler`
   * but, this won't work with delay-call.
-* Adapt dark mode with asset-catalog-color
+* Adapt dark mode with asset-catalog-colors
 
 ## how to run
 
 * Install Xcode11.0 beta
   * you need not install MacBeta (but you can't use preview)
-* sign in [OpenWeather](https://openweathermap.org/) and create API-Key.
-* Write your API-Key in `Constants.swift`
-* Run!
+* Build and Run
 
-If you don't want to create OpenWeather account, you can use local-stored-json instead.
+By default, this app will access local-json file.  
+If you want to use network-api, please do as following
 
-* open `WeatherRepository.swift`
-* in `WeatherRepositoryImpl.fetcfetch5DayForecast`, switch to use `resourceRequest`.
+* sign in [OpenWeather](https://openweathermap.org/) and create Api Key
+* rename `Config-sample.plist` to `Config.plist`
+* Write your Api Key in `Constants.plist`
 
 > city_list.json from Openweather is too big (20MB!).
-> So I shrinked it. Please check city_json/.
+> So I shrinked it. Please check city_json/
 
 ## file structure
 
 + /  
-  +- Constants.swift : API-key.Please set your own key  
+  +- Config-sample.plist : config base file. rename and set your key
   +- RootView.swift : view at app-launching  
   +- Theme.swift : Color list  
   +- asset/ : cities and sample json  
