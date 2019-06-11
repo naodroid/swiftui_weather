@@ -35,13 +35,11 @@ protocol CityListRepository {
 //implementation
 final class CityListRepositoryImpl: CityListRepository {
     //
-    private let _cityList = PassthroughSubject<CityFilterResult, Never>()
-    var cityList: CityFilterResultPublisher {
-        return self._cityList.eraseToAnyPublisher()
-    }
+    @WithPassthrough var cityList: CityFilterResultPublisher
+    
     //
-    private let _keyword : CurrentValueSubject<String, Never> = CurrentValueSubject("")
-    private let _allCities: CurrentValueSubject<[City], Never> = CurrentValueSubject([City]())
+    private let _keyword : CurrentValueSubject<String, Never> = .init("")
+    private let _allCities: CurrentValueSubject<[City], Never> = .init([City]())
     private var cancellableBag = CancellableBag()
 
     /// load city list from bundle
@@ -62,11 +60,10 @@ final class CityListRepositoryImpl: CityListRepository {
                     : result
                 return CityFilterResult(keyword: keyword, cities: limit)
             }
-            .sink(receiveValue: self._cityList.send)
+            .sink(receiveValue: self.$cityList.set)
             .cancel(by: self.cancellableBag)
     }
     func filter(by keyword: String) {
-
         self._keyword.send(keyword)
     }
     func cancel() {

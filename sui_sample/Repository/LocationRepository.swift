@@ -25,15 +25,8 @@ protocol LocationRepository {
 /// impl
 final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocationManagerDelegate {
     //data
-    private let _location = PassthroughSubject<CLLocation, Never>()
-    var location: AnyPublisher<CLLocation, Never> {
-        return _location.eraseToAnyPublisher()
-    }
-    //error
-    private let _error = PassthroughSubject<LocationError, Never>()
-    var error: AnyPublisher<LocationError, Never> {
-        return _error.eraseToAnyPublisher()
-    }
+    @WithPassthrough var location: AnyPublisher<CLLocation, Never>
+    @WithPassthrough var error: AnyPublisher<LocationError, Never>
 
     //other
     private var locationManager: CLLocationManager?
@@ -44,7 +37,7 @@ final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocationMana
             return
         }
         if !CLLocationManager.locationServicesEnabled() {
-            _error.send(LocationError.serviceNotAvailable)
+            self.$error.set(LocationError.serviceNotAvailable)
             return
         }
 
@@ -64,7 +57,7 @@ final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocationMana
         case .notDetermined:
             self.locationManager?.requestWhenInUseAuthorization()
         case .restricted, .denied:
-            self._error.send(LocationError.permissionDenied)
+            self.$error.set(LocationError.permissionDenied)
         case .authorizedAlways, .authorizedWhenInUse:
             break
         @unknown default:
@@ -75,7 +68,7 @@ final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocationMana
         guard let location = locations.first else {
             return
         }
-        self._location.send(location)
+        self.$location.set(location)
     }
 }
 

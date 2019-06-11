@@ -31,6 +31,7 @@
 		35B440A322A8F08D0012D6C9 /* LocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B440A222A8F08D0012D6C9 /* LocationRepository.swift */; };
 		35B440A522A8F09B0012D6C9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35B440A422A8F09B0012D6C9 /* CoreLocation.framework */; };
 		35B440A722A8F6200012D6C9 /* CityListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B440A622A8F6200012D6C9 /* CityListRepository.swift */; };
+		35D6007F22AF2B9500F2169F /* CombineWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D6007E22AF2B9500F2169F /* CombineWrapper.swift */; };
 		35DC39FB22A937AE00694DC0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35DC39FA22A937AE00694DC0 /* MapKit.framework */; };
 		35DC39FD22A937B800694DC0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DC39FC22A937B800694DC0 /* MapView.swift */; };
 		35DC39FF22A9409B00694DC0 /* city_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 35DC39FE22A9409B00694DC0 /* city_list.json */; };
@@ -70,6 +71,7 @@
 		35B440A222A8F08D0012D6C9 /* LocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRepository.swift; sourceTree = "<group>"; };
 		35B440A422A8F09B0012D6C9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		35B440A622A8F6200012D6C9 /* CityListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListRepository.swift; sourceTree = "<group>"; };
+		35D6007E22AF2B9500F2169F /* CombineWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineWrapper.swift; sourceTree = "<group>"; };
 		35DC39FA22A937AE00694DC0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		35DC39FC22A937B800694DC0 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		35DC39FE22A9409B00694DC0 /* city_list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = city_list.json; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				35B1507822A67CF700BC52BB /* AliasList.swift */,
 				351FBFB422A68CBE007F9BB8 /* CancellableBag.swift */,
 				35EB645822A910E500061C40 /* Combine+Ext.swift */,
+				35D6007E22AF2B9500F2169F /* CombineWrapper.swift */,
 				35EB645622A90EB300061C40 /* MainThreadScheduler.swift */,
 				358804DB22A770CD00DAD63E /* SwiftUI+Ext.swift */,
 			);
@@ -317,6 +320,7 @@
 				35EB645522A906C200061C40 /* CitySelectViewModel.swift in Sources */,
 				358804E022A772B400DAD63E /* NetworkImageView.swift in Sources */,
 				35A6311522A9D51B00940C06 /* Weather5DayView.swift in Sources */,
+				35D6007F22AF2B9500F2169F /* CombineWrapper.swift in Sources */,
 				356AFCE622A6248F00D472F0 /* WeatherAPI.swift in Sources */,
 				35EB645722A90EB300061C40 /* MainThreadScheduler.swift in Sources */,
 				35B440A322A8F08D0012D6C9 /* LocationRepository.swift in Sources */,
