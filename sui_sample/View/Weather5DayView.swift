@@ -51,7 +51,7 @@ private struct Weather5DayView: View {
         //we can't use let assignment in view-building
         //so assign variables before it.
         //and we can't use complex-if-condition in view-building
-        return VStack {
+        VStack {
             if hasForecast {
                 List(self.forecasts, rowContent: {(item) in
                     DailyWeatherRow(item: item)
@@ -59,11 +59,8 @@ private struct Weather5DayView: View {
             } else {
                 Text("Loading")
             }
-            }
-            .onDisappear(perform: {
-                print("ON_DISS")
-            })
-            .navigationBarTitle(Text(self.navigationTitle), displayMode: .large)
+        }
+        .navigationBarTitle(Text(self.navigationTitle), displayMode: .large)
     }
 }
 
@@ -87,20 +84,22 @@ private struct DailyWeatherRow: View {
                         VStack {
                             NetworkImage(
                                 url: "https://openweathermap.org/img/w/\(item.forecasts.weather[0].icon).png",
-                                placeHolder: "blank")
+                                placeHolder: "blank"
+                            )
                                 .frame(width: 50, height: 50)
-                            Text(item.hhmm).font(Font.footnote)
+                            Text(item.hhmm)
+                                .font(.footnote)
                         }
                         .frame(width: 60)
                     }
                 }
             }
         }
-        .padding(Edge.Set.all, 4)
+        .padding(.all, 4)
         .frame(height: 120)
         .background(self.theme.background)
         .shadow(radius: 3)
-        .padding(Edge.Set.all, 4)
+        .padding(.all, 4)
     }
 }
 extension HourlyWeather: Identifiable {

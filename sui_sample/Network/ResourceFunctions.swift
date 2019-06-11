@@ -14,7 +14,7 @@ import Combine
 /// use local resource instead of network access
 /// to avoid API limit.
 func resourceRequest(fileName: String) -> AnyPublisher<Data, Error> {
-    return AnyPublisher {(subscriber) in
+    AnyPublisher {(subscriber) in
         guard let path = Bundle.main.path(forResource: fileName, ofType: nil) else {
             subscriber.receive(completion: .failure(HttpError.invalidURL))
             return
@@ -35,7 +35,7 @@ func resourceRequest(fileName: String) -> AnyPublisher<Data, Error> {
 }
 
 func resourceRequestJson<T: Decodable>(fileName: String) -> AnyPublisher<T, Error> {
-    return resourceRequest(fileName: fileName)
+    resourceRequest(fileName: fileName)
         .eraseToAnyPublisher()
         .map { (data) -> T in
             let decoder = JSONDecoder()

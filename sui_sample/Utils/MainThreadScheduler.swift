@@ -12,23 +12,23 @@ import Combine
 /// extend for used in Scheduler
 extension TimeInterval: SchedulerTimeIntervalConvertible {
     public static func seconds(_ s: Int) -> TimeInterval {
-        return TimeInterval(s)
+        TimeInterval(s)
     }
 
     public static func seconds(_ s: Double) -> TimeInterval {
-        return TimeInterval(s)
+        TimeInterval(s)
     }
 
     public static func milliseconds(_ ms: Int) -> TimeInterval {
-        return TimeInterval(ms) / 1_000.0
+        TimeInterval(ms) / 1_000.0
     }
 
     public static func microseconds(_ us: Int) -> TimeInterval {
-        return TimeInterval(us) / 1_000_000.0
+        TimeInterval(us) / 1_000_000.0
     }
 
     public static func nanoseconds(_ ns: Int) -> TimeInterval {
-        return TimeInterval(ns) / 1_000_000_000.0
+        TimeInterval(ns) / 1_000_000_000.0
     }
 }
 ///
@@ -36,11 +36,11 @@ struct MainThreadScheduler: Scheduler {
     static let shared = MainThreadScheduler()
 
     var now: MainThreadScheduler.SchedulerTimeType {
-        return SchedulerTimeType(value: Date().timeIntervalSince1970)
+        SchedulerTimeType(value: Date().timeIntervalSince1970)
     }
 
     var minimumTolerance: MainThreadScheduler.SchedulerTimeType.Stride {
-        return TimeInterval(0.01)
+        TimeInterval(0.01)
     }
 
     typealias SchedulerOptions = Never
@@ -50,11 +50,11 @@ struct MainThreadScheduler: Scheduler {
         let value: TimeInterval
 
         func distance(to other: MainThreadScheduler.SchedulerTimeType) -> TimeInterval {
-            return self.value - other.value
+            self.value - other.value
         }
 
         func advanced(by n: TimeInterval) -> MainThreadScheduler.SchedulerTimeType {
-            return SchedulerTimeType(value: self.value + n)
+            SchedulerTimeType(value: self.value + n)
         }
     }
     //

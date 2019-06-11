@@ -42,7 +42,7 @@ class ColorTheme: BindableObject {
 
     /// this color works when you switch dark-mode.
     /// but, the color will be reset to light-color after chaning tab
-    /// .colorScheme(.dark) also won't work.
+    /// .colorScheme(.dark) also won't work. so I created resolve function
     var tabBgColor: Color {
         self.resolve(UIColor(named: "tabBgColor")!)
     }

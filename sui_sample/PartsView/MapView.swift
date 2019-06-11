@@ -72,7 +72,7 @@ struct MapView: UIViewRepresentable {
 }
 extension CLLocationCoordinate2D: Equatable {
     public static func ==(lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
-        return lhs.latitude.arg == rhs.latitude
+        lhs.latitude.arg == rhs.latitude
             && lhs.longitude.arg == rhs.longitude.arg
     }
 }

@@ -19,7 +19,7 @@ enum HttpError : Error {
 
 
 func httpRequest(url: String) -> AnyPublisher<Data, Error> {
-    return AnyPublisher {(subscriber) in
+    AnyPublisher {(subscriber) in
         guard let compnents = URLComponents(string: url) else {
             subscriber.receive(completion: .failure(HttpError.invalidURL))
             return
@@ -42,7 +42,7 @@ func httpRequest(url: String) -> AnyPublisher<Data, Error> {
 
 func httpRequestJson<T: Decodable>(url: String,
                                    keyStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) -> AnyPublisher<T, Error> {
-    return httpRequest(url: url)
+    httpRequest(url: url)
         .eraseToAnyPublisher()
         .map { (data) -> T in
             let decoder = JSONDecoder()
