@@ -48,11 +48,14 @@ private struct Weather5DayView: View {
     }
 
     var body: some View {
-        //we can't use let assignment in view-building
-        //so assign variables before it.
-        //and we can't use complex-if-condition in view-building
         VStack {
             if hasForecast {
+                //I've found List causes memory-leaks, the viewModel won't be released.
+                //if you replace this to Text, the viewModel will be realeased.
+                //I think this is an issue of SwiftUI,
+                //and I hope this will be fixed during beta.
+                //Even this code will produce memory-leaks
+                //List([DailyWeather](), rowContent...)   no viewModel references
                 List(self.forecasts, rowContent: {(item) in
                     DailyWeatherRow(item: item)
                 })

@@ -87,3 +87,5 @@ Basic Structure
 
 * MainThreadScheduler won't work with delay-time
   * when I call action() an `DispatchQueue.main.async`, nothing happens.
+* Weather5DayView causes memory-leaks
+  * I found that `List` causes it. But I can't find the way to fix this.

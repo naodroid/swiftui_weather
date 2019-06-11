@@ -71,6 +71,7 @@ class Weather5DayViewModel: BindableObject {
         self.repository = repository
     }
     deinit {
+        print("DEINIT_VM")
         self.cancellable?.cancel()
     }
     //
