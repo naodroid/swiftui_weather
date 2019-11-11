@@ -20,11 +20,11 @@ struct Weather5DayFragment: View {
     init(lat: Double, lon: Double) {
         self.searchType = WeatherSearchType.location(lat: lat, lon: lon)
     }
-
+    
     var body: some View {
         let repository = WeatherRepositoryImpl()
         let viewModel = Weather5DayViewModel(searchType: searchType,
-                                              repository: repository)
+                                             repository: repository)
         return Weather5DayView().environmentObject(viewModel)
             .onAppear { viewModel.fetch() }
             //in navigation, onDisappear won't be called.
@@ -36,17 +36,17 @@ struct Weather5DayFragment: View {
 private struct Weather5DayView: View {
     @EnvironmentObject var viewModel: Weather5DayViewModel
     @EnvironmentObject var theme: ColorTheme
-
+    
     private var forecasts: [DailyWeather] { self.viewModel.dailyList }
     private var hasForecast: Bool { self.forecasts.count > 0 }
-
+    
     var navigationTitle: String {
         switch self.viewModel.searchType {
         case .city(let city): return city.name
         case .location(let lat, let lon): return String.init(format: "%.3f,%.3f", lat, lon)
         }
     }
-
+    
     var body: some View {
         VStack {
             if hasForecast {
@@ -70,32 +70,30 @@ private struct Weather5DayView: View {
 private struct DailyWeatherRow: View {
     let item: DailyWeather
     @EnvironmentObject var theme: ColorTheme
-
+    
     var list: [HourlyWeather] {
         return item.hourlyList
     }
-
+    
     var body: some View {
         VStack {
-            HStack {
-                Text(item.date)
-                Spacer()
-            }
-            ScrollView(showsHorizontalIndicator: false) {
-                HStack {
-                    ForEach(self.list) { (item) in
-                        VStack {
-                            NetworkImage(
-                                url: "https://openweathermap.org/img/w/\(item.forecasts.weather[0].icon).png",
-                                placeHolder: "blank"
-                            )
-                                .frame(width: 50, height: 50)
-                            Text(item.hhmm)
-                                .font(.footnote)
+            ScrollView(
+                Axis.Set.vertical,
+                showsIndicators: false) {
+                    HStack {
+                        ForEach(self.list) { (item) in
+                            VStack {
+                                NetworkImage(
+                                    url: "https://openweathermap.org/img/w/\(item.forecasts.weather[0].icon).png",
+                                    placeHolder: "blank"
+                                )
+                                    .frame(width: CGFloat(50), height: CGFloat(50))
+                                Text(item.hhmm)
+                                    .font(.footnote)
+                            }
+                            .frame(width: CGFloat(60))
                         }
-                        .frame(width: 60)
                     }
-                }
             }
         }
         .padding(.all, 4)

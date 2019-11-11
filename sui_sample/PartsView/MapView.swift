@@ -10,24 +10,24 @@ import SwiftUI
 import MapKit
 
 struct MapView: UIViewRepresentable {
-
+    
     let loc: CLLocation?
     let pin: CLLocationCoordinate2D?
     let onTap: ((CLLocationCoordinate2D) -> Void)?
-
+    
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
-
+    
     func makeUIView(context: Context) -> MKMapView {
         let map = MKMapView(frame: .zero)
         context.coordinator.addGesture(map: map)
         map.isZoomEnabled = true
         return map
     }
-
+    
     func updateUIView(_ view: MKMapView, context: Context) {
-
+        
         let coordinator = context.coordinator
         if let loc = self.loc, loc != coordinator.lastCenterLocation {
             let coordinate = loc.coordinate
@@ -41,7 +41,7 @@ struct MapView: UIViewRepresentable {
             for a in view.annotations {
                 view.removeAnnotation(a)
             }
-
+            
             let annotation = MKPointAnnotation()
             annotation.coordinate = loc
             view.addAnnotation(annotation)
@@ -52,7 +52,7 @@ struct MapView: UIViewRepresentable {
         var parent: MapView
         var lastCenterLocation: CLLocation? = nil
         var lastPinLocation: CLLocationCoordinate2D? = nil
-
+        
         init(_ parent: MapView) {
             self.parent = parent
         }
@@ -72,7 +72,7 @@ struct MapView: UIViewRepresentable {
 }
 extension CLLocationCoordinate2D: Equatable {
     public static func ==(lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
-        lhs.latitude.arg == rhs.latitude
-            && lhs.longitude.arg == rhs.longitude.arg
+        lhs.latitude == rhs.latitude
+            && lhs.longitude == rhs.longitude
     }
 }

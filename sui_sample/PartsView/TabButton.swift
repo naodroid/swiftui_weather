@@ -27,19 +27,19 @@ struct TabButton: View {
     }
     
     var body: some View {
-        ZStack {
+        return ZStack {
             RoundBg(
                 strokeColor: theme.tabFrameColor,
                 fillColorTop: self.fillColorTop,
                 fillColorBottom: self.fillColorBottom
             )
-                .colorScheme(.dark).content
+                .colorScheme(.light)
             Button(action: self.action) {
                 Text(self.text).foregroundColor(self.textColor)
             }
-            //this resize code has problem.
-            //Tap detecting area is still small, same as Text size
-            .maximumWidth().maximumHeight()
+                //this resize code has problem.
+                //Tap detecting area is still small, same as Text size
+                .maximumWidth().maximumHeight()
         }.frame(height: 36.0)
     }
 }

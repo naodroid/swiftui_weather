@@ -34,7 +34,7 @@ private func convert(_ base: Weather5Day) -> [DailyWeather] {
     formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "ydMMM", options: 0, locale: nil)!
     let hourFormatter = DateFormatter()
     hourFormatter.dateFormat = "HH:mm"
-
+    
     for w in base.list {
         let date = Date(timeIntervalSince1970: TimeInterval(w.dt))
         let txt = formatter.string(from: date)
@@ -54,17 +54,19 @@ private func convert(_ base: Weather5Day) -> [DailyWeather] {
 //----------------------------------
 // MARK:  Main Code
 /// view model for 5day  forecast
-class Weather5DayViewModel: BindableObject {
+class Weather5DayViewModel: ObservableObject {
     //override
     let didChange = PassthroughSubject<Weather5DayViewModel, Never>()
     //public
     let searchType: WeatherSearchType
+    @Published
     fileprivate(set) var loading: Bool = false
+    @Published
     fileprivate(set) var dailyList : [DailyWeather] = []
     //private
     private var cancellable: Cancellable?
     private let repository: WeatherRepository
-
+    
     //
     init(searchType: WeatherSearchType, repository: WeatherRepository) {
         self.searchType = searchType
@@ -80,8 +82,7 @@ class Weather5DayViewModel: BindableObject {
             return
         }
         self.loading = true
-        self.notifyUpdate()
-
+        
         let api: Weather5DayPublisher
         switch self.searchType {
         case .city(let city):
@@ -89,19 +90,17 @@ class Weather5DayViewModel: BindableObject {
         case .location(let lat, let lon):
             api = self.repository.fetch5DayForecast(lat: lat, lon: lon)
         }
-
+        
         self.cancellable = api
             .map(convert)
             .onMainThread()
             .sink(receiveCompletion: {[weak self] (_) in
                 guard let s = self else { print("RET!!");return }
                 s.loading = false
-                s.notifyUpdate()
-            }, receiveValue: {[weak self] (w) in
-                guard let s = self else { print("RET!!");return }
-                s.loading = false
-                s.dailyList = w
-                s.notifyUpdate()
+                }, receiveValue: {[weak self] (w) in
+                    guard let s = self else { print("RET!!");return }
+                    s.loading = false
+                    s.dailyList = w
             })
     }
     func cancel() {

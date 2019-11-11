@@ -19,20 +19,19 @@ enum HttpError : Error {
 
 
 func httpRequest(url: String) -> AnyPublisher<Data, Error> {
-    AnyPublisher {(subscriber) in
+    Future<Data, Error> { (result) in
         guard let compnents = URLComponents(string: url) else {
-            subscriber.receive(completion: .failure(HttpError.invalidURL))
+            result(.failure(HttpError.invalidURL))
             return
         }
         let url = compnents.url
         let task = URLSession.shared.dataTask(with: url!) { data, response, error in
             if let data = data {
-                _ = subscriber.receive(data)
-                subscriber.receive(completion: .finished)
+                result(.success(data))
             } else if let e = error {
-                subscriber.receive(completion: .failure(HttpError.connectionError(e)))
+                result(.failure(HttpError.connectionError(e)))
             } else {
-                subscriber.receive(completion: .failure(HttpError.unknownError))
+                result(.failure(HttpError.unknownError))
             }
         }
         task.resume()
@@ -48,7 +47,7 @@ func httpRequestJson<T: Decodable>(url: String,
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = keyStrategy
             return try! decoder.decode(T.self, from: data)
-        }
-        .eraseToAnyPublisher()
+    }
+    .eraseToAnyPublisher()
 }
 

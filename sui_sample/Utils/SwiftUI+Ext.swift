@@ -10,18 +10,13 @@ import Foundation
 import SwiftUI
 import Combine
 
-extension BindableObject where Self.PublisherType.Output == Self, Self.PublisherType : Subject {
-    func notifyUpdate() {
-        self.didChange.send(self)
-    }
-}
-
 extension View {
-    func maximumWidth() -> Self.Modified<_FlexFrameLayout> {
-        return self.frame(minWidth: 0, idealWidth: 12000, maxWidth: 12000)
+    func maximumWidth() -> some View {
+        self.frame(minWidth: 0, idealWidth: 12000, maxWidth: 12000)
     }
-    func maximumHeight() -> Self.Modified<_FlexFrameLayout> {
-        return self.frame(minHeight: 0, idealHeight: 12000, maxHeight: 12000)
+    
+    func maximumHeight() -> some View {
+        self.frame(minHeight: 0, idealHeight: 12000, maxHeight: 12000)
     }
 }
 
@@ -37,3 +32,4 @@ private func resignFirstResponderRecursive(view: UIView) {
         resignFirstResponderRecursive(view: v)
     }
 }
+

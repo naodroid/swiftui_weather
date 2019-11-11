@@ -16,58 +16,48 @@ enum CitySelectTab: Int {
     case map
 }
 
-final class CitySelectViewModel: BindableObject {
+final class CitySelectViewModel: ObservableObject {
     //override
     let didChange = PassthroughSubject<CitySelectViewModel, Never>()
-
+    
     //repositories
     private let listRepository: CityListRepository
     private let locationRepository: LocationRepository
-
+    
     //view state
-    private(set) var selectedTab: CitySelectTab = .cityList {
-        didSet {
-            self.notifyUpdate()
-        }
-    }
-
-    private(set) var cities: [City] = [] {
-        didSet {
-            self.notifyUpdate()
-        }
-    }
-    private(set) var location: CLLocation?  = nil {
-        didSet {
-            self.notifyUpdate()
-        }
-    }
-    private(set) var pin: CLLocationCoordinate2D? = nil {
-        didSet {
-            self.notifyUpdate()
-        }
-    }
-
-
-
+    @Published
+    private(set) var selectedTab: CitySelectTab = .cityList
+    
+    @Published
+    private(set) var cities: [City] = []
+    
+    @Published
+    private(set) var location: CLLocation?  = nil
+    
+    @Published
+    private(set) var pin: CLLocationCoordinate2D? = nil
+    
+    
+    
     private let cancellableBag = CancellableBag()
-
+    
     /// creation
     init(listRepository: CityListRepository, locationRepository: LocationRepository) {
         self.listRepository = listRepository
         self.locationRepository = locationRepository
     }
-
+    
     // MARK: exponed methods
     /// setup, call at onAppear
     func setup() {
         self.listRepository.setup()
-
+        
         self.listRepository
             .cityList
             .map { $0.cities }
             .onMainThread()
             .receive(subscriber: Subscribers.Assign(object: self, keyPath: \.cities))
-
+        
     }
     /// call at onDisappear
     func cancel() {
@@ -75,16 +65,16 @@ final class CitySelectViewModel: BindableObject {
         self.locationRepository.cancel()
         self.cancellableBag.cancel()
     }
-
+    
     /// filter cities with keywoard
     func filter(by keyword: String) {
         self.listRepository.filter(by: keyword)
     }
-
+    
     func changeTab(to tab: CitySelectTab) {
         self.selectedTab = tab
     }
-
+    
     //
     func startLocating() {
         //measure once
@@ -96,12 +86,12 @@ final class CitySelectViewModel: BindableObject {
                 s.location = loc
                 s.pin = loc.coordinate
                 s.locationRepository.cancel()
-            }
-            .cancel(by: self.cancellableBag)
-
+        }
+        .cancel(by: self.cancellableBag)
+        
         self.locationRepository.startMeasuring()
     }
-
+    
     func setPin(pos: CLLocationCoordinate2D) {
         self.pin = pos
     }

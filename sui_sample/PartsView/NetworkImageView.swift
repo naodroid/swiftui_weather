@@ -31,12 +31,14 @@ struct NetworkImage: View {
                 Image(self.placeHolder)
                     .onAppear {
                         self.cancellable = httpRequest(url: self.url)
-                            .sink(receiveValue: { (data) in
+                            .sink(receiveCompletion: { (_) in
+                                
+                            }, receiveValue: { (data) in
                                 let image = UIImage(data: data)
                                 self.image = image
                             })
-                    }.onDisappear {
-                        self.cancellable?.cancel()
+                }.onDisappear {
+                    self.cancellable?.cancel()
                 }
             }
         }

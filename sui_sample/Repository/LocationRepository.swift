@@ -23,30 +23,40 @@ protocol LocationRepository {
 }
 
 /// impl
-final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocationManagerDelegate {
+final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocationManagerDelegate, ObservableObject {
     //data
-    @WithPassthrough var location: AnyPublisher<CLLocation, Never>
-    @WithPassthrough var error: AnyPublisher<LocationError, Never>
-
+    private let _location = PassthroughSubject<CLLocation, Never>()
+    var location: AnyPublisher<CLLocation, Never> {
+        self._location.eraseToAnyPublisher()
+    }
+    
+    
+    private let _error = PassthroughSubject<LocationError, Never>()
+    var error: AnyPublisher<LocationError, Never> {
+        self._error.eraseToAnyPublisher()
+    }
+    
+    
+    
     //other
     private var locationManager: CLLocationManager?
-
+    
     //
     func startMeasuring() {
         if self.locationManager != nil {
             return
         }
         if !CLLocationManager.locationServicesEnabled() {
-            self.$error.set(LocationError.serviceNotAvailable)
+            self._error.send(LocationError.serviceNotAvailable)
             return
         }
-
+        
         let mn = CLLocationManager()
         self.locationManager = mn
         mn.delegate = self
         mn.startUpdatingLocation()
     }
-
+    
     func cancel() {
         self.locationManager?.stopUpdatingLocation()
         self.locationManager = nil
@@ -57,7 +67,7 @@ final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocationMana
         case .notDetermined:
             self.locationManager?.requestWhenInUseAuthorization()
         case .restricted, .denied:
-            self.$error.set(LocationError.permissionDenied)
+            self._error.send(LocationError.permissionDenied)
         case .authorizedAlways, .authorizedWhenInUse:
             break
         @unknown default:
@@ -68,7 +78,7 @@ final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocationMana
         guard let location = locations.first else {
             return
         }
-        self.$location.set(location)
+        self._location.send(location)
     }
 }
 

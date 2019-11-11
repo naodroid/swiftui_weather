@@ -14,24 +14,22 @@ import Combine
 /// use local resource instead of network access
 /// to avoid API limit.
 func resourceRequest(fileName: String) -> AnyPublisher<Data, Error> {
-    AnyPublisher {(subscriber) in
+    Future<Data, Error> { (result) in
         guard let path = Bundle.main.path(forResource: fileName, ofType: nil) else {
-            subscriber.receive(completion: .failure(HttpError.invalidURL))
+            result(.failure(HttpError.invalidURL))
             return
         }
-
+        
         let url = URL(fileURLWithPath: path)
         //Simulate delay
         DispatchQueue.global().asyncAfter(deadline: .now() + 0.8) {
             guard let data = try? Data(contentsOf: url) else {
-                subscriber.receive(completion: .failure(HttpError.invalidURL))
+                result(.failure(HttpError.invalidURL))
                 return
             }
-            _ = subscriber.receive(data)
-            subscriber.receive(completion: .finished)
+            result(.success(data))
         }
-    }
-    .eraseToAnyPublisher()
+    }.eraseToAnyPublisher()
 }
 
 func resourceRequestJson<T: Decodable>(fileName: String) -> AnyPublisher<T, Error> {
@@ -41,6 +39,6 @@ func resourceRequestJson<T: Decodable>(fileName: String) -> AnyPublisher<T, Erro
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             return try! JSONDecoder().decode(T.self, from: data)
-        }
-        .eraseToAnyPublisher()
+    }
+    .eraseToAnyPublisher()
 }

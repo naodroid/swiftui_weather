@@ -27,10 +27,10 @@ protocol WeatherRepository {
 // MARK:
 /// Implementation
 final class WeatherRepositoryImpl: WeatherRepository {
-
+    
     ///
     private let cancellableBag = CancellableBag()
-
+    
     ///
     func fetch5DayForecast(city: City) -> Weather5DayPublisher {
         guard let key = Config.apiKey else {
@@ -58,17 +58,17 @@ final class WeatherRepositoryImpl: WeatherRepository {
         url += String(format: "?lat=%.6f&lon=%.6f",lat, lon)
         url += "&appid=\(key)"
         url += "&units=metrics"
-
+        
         return httpRequestJson(url: url, keyStrategy: .convertFromSnakeCase)
         //fetch from resource
         //return resourceRequestJson(fileName: "5day_sample.json")
     }
-
+    
     func clear() {
         self.cancellableBag.cancel()
     }
-
-
+    
+    
 }
 
 

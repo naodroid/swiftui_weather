@@ -24,7 +24,7 @@ class TraitObservingViewController<T>: UIHostingController<T> where T: View {
         self.theme?.currentTrait = self.traitCollection
     }
 }
-class ColorTheme: BindableObject {
+class ColorTheme: ObservableObject {
     let didChange = PassthroughSubject<ColorTheme, Never>()
     fileprivate var currentTrait: UITraitCollection? {
         didSet {

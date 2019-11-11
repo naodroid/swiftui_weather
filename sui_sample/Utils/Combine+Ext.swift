@@ -11,7 +11,7 @@ import Combine
 
 extension Publisher {
     func onMainThread() -> AnyPublisher<Self.Output, Self.Failure> {
-        return self.delay(for: 0.0, scheduler: MainThreadScheduler.shared)
+        return self.receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
 }
