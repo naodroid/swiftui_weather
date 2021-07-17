@@ -8,15 +8,12 @@
 
 import Foundation
 import SwiftUI
-import Combine
-
 
 struct NetworkImage: View {
     let url: String
     let placeHolder: String
     
     @State var image: UIImage? = nil
-    @State var cancellable: Cancellable? = nil
     
     init(url: String, placeHolder: String) {
         self.url = url
@@ -30,15 +27,15 @@ struct NetworkImage: View {
             } else {
                 Image(self.placeHolder)
                     .onAppear {
-                        self.cancellable = httpRequest(url: self.url)
-                            .sink(receiveCompletion: { (_) in
-                                
-                            }, receiveValue: { (data) in
+                        async {
+                            do {
+                                let data = try await httpRequest(url: self.url)
                                 let image = UIImage(data: data)
                                 self.image = image
-                            })
+                            } catch {
+                            }
+                        }
                 }.onDisappear {
-                    self.cancellable?.cancel()
                 }
             }
         }

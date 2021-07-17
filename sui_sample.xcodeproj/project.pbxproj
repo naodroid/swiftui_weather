@@ -41,6 +41,7 @@
 		35EB645922A910E500061C40 /* Combine+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EB645822A910E500061C40 /* Combine+Ext.swift */; };
 		35EB645B22A911F900061C40 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EB645A22A911F900061C40 /* RootView.swift */; };
 		35EB645D22A9120D00061C40 /* CitySelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EB645C22A9120D00061C40 /* CitySelectView.swift */; };
+		C65D9D7826A25233000C94C9 /* Async+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65D9D7726A25233000C94C9 /* Async+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 		35EB645822A910E500061C40 /* Combine+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+Ext.swift"; sourceTree = "<group>"; };
 		35EB645A22A911F900061C40 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		35EB645C22A9120D00061C40 /* CitySelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySelectView.swift; sourceTree = "<group>"; };
+		C65D9D7726A25233000C94C9 /* Async+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Async+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +208,7 @@
 		35B1507722A67CE800BC52BB /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				C65D9D7726A25233000C94C9 /* Async+Ext.swift */,
 				35B1507822A67CF700BC52BB /* AliasList.swift */,
 				351FBFB422A68CBE007F9BB8 /* CancellableBag.swift */,
 				35EB645822A910E500061C40 /* Combine+Ext.swift */,
@@ -318,6 +321,7 @@
 				358804E022A772B400DAD63E /* NetworkImageView.swift in Sources */,
 				35A6311522A9D51B00940C06 /* Weather5DayView.swift in Sources */,
 				356AFCE622A6248F00D472F0 /* WeatherAPI.swift in Sources */,
+				C65D9D7826A25233000C94C9 /* Async+Ext.swift in Sources */,
 				35EB645722A90EB300061C40 /* MainThreadScheduler.swift in Sources */,
 				35B440A322A8F08D0012D6C9 /* LocationRepository.swift in Sources */,
 				35DC3A0122A9C64500694DC0 /* ColorTheme.swift in Sources */,

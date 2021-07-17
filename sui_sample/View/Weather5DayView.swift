@@ -8,7 +8,6 @@
 
 import Foundation
 import SwiftUI
-import Combine
 
 /// show 5day weatehr from open weather
 struct Weather5DayFragment: View {
@@ -27,8 +26,8 @@ struct Weather5DayFragment: View {
                                              repository: repository)
         return Weather5DayView().environmentObject(viewModel)
             .onAppear { viewModel.fetch() }
-            //in navigation, onDisappear won't be called.
-            //Because [NavigationButton] keeps this view
+        //in navigation, onDisappear won't be called.
+        //Because [NavigationButton] keeps this view
             .onDisappear { viewModel.cancel() }
     }
 }
@@ -50,12 +49,6 @@ private struct Weather5DayView: View {
     var body: some View {
         VStack {
             if hasForecast {
-                //I've found List causes memory-leaks, the viewModel won't be released.
-                //if you replace this to Text, the viewModel will be realeased.
-                //I think this is an issue of SwiftUI,
-                //and I hope this will be fixed during beta.
-                //Even this code will produce memory-leaks
-                //List([DailyWeather](), rowContent...)   no viewModel references
                 List(self.forecasts, rowContent: {(item) in
                     DailyWeatherRow(item: item)
                 })
@@ -76,24 +69,28 @@ private struct DailyWeatherRow: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(item.date)
+                .padding(
+                    EdgeInsets(top: 0, leading: 4, bottom: 0, trailing: 0)
+                )
             ScrollView(
-                Axis.Set.vertical,
+                Axis.Set.horizontal,
                 showsIndicators: false) {
-                    HStack {
-                        ForEach(self.list) { (item) in
-                            VStack {
-                                NetworkImage(
-                                    url: "https://openweathermap.org/img/w/\(item.forecasts.weather[0].icon).png",
-                                    placeHolder: "blank"
-                                )
-                                    .frame(width: CGFloat(50), height: CGFloat(50))
-                                Text(item.hhmm)
-                                    .font(.footnote)
-                            }
-                            .frame(width: CGFloat(60))
+                HStack {
+                    ForEach(self.list) { (item) in
+                        VStack {
+                            NetworkImage(
+                                url: "https://openweathermap.org/img/w/\(item.forecasts.weather[0].icon).png",
+                                placeHolder: "blank"
+                            )
+                                .frame(width: CGFloat(50), height: CGFloat(50))
+                            Text(item.hhmm)
+                                .font(.footnote)
                         }
+                        .frame(width: CGFloat(60))
                     }
+                }
             }
         }
         .padding(.all, 4)

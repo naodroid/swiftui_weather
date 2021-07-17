@@ -8,7 +8,6 @@
 
 import Foundation
 import SwiftUI
-import Combine
 
 /// manegement lifecycle, di and so on
 /// This is similar to Android-Fragment, so I named this as Fragment
@@ -25,6 +24,8 @@ struct CitySelectFragment: View {
         )
         return CitySelectView()
             .environmentObject(viewModel)
+        //this nav title causes AutoLayout issues,
+        //but I suppose this is an issue of Xcode beta.
             .navigationBarTitle(Text("City Selection"))
             .onAppear { viewModel.setup() }
             .onDisappear { viewModel.cancel() }
@@ -67,13 +68,19 @@ struct CitySelectView: View {
     }
     
     private var cityList: some View {
-        VStack {
+        let binding = Binding<String>(get: {
+            return self.text
+        }) { (newValue) in
+            self.text = newValue
+            self.viewModel.filter(by: newValue)
+        }
+        
+        return VStack {
             HStack {
-                TextField("", text: $text, onEditingChanged: { (_) in
+                TextField("", text: binding, onEditingChanged: { (_) in
                     
                 }, onCommit: {
                     self.viewModel.filter(by: self.text)
-                    resignFirstResponderForCurrentView()
                 })
                     .frame(height: 28)
                     .padding([.leading, .trailing], 8)
@@ -95,7 +102,7 @@ struct CitySelectView: View {
                 loc: self.viewModel.location,
                 pin: self.viewModel.pin,
                 onTap: {(pos) in
-                    self.viewModel.setPin(pos: pos)
+                self.viewModel.setPin(pos: pos)
             })
             //buttons
             VStack {

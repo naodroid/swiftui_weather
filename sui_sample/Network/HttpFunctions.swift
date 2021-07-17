@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import Combine
-
 
 enum HttpError : Error {
     case invalidURL
@@ -18,36 +16,21 @@ enum HttpError : Error {
 }
 
 
-func httpRequest(url: String) -> AnyPublisher<Data, Error> {
-    Future<Data, Error> { (result) in
-        guard let compnents = URLComponents(string: url) else {
-            result(.failure(HttpError.invalidURL))
-            return
-        }
-        let url = compnents.url
-        let task = URLSession.shared.dataTask(with: url!) { data, response, error in
-            if let data = data {
-                result(.success(data))
-            } else if let e = error {
-                result(.failure(HttpError.connectionError(e)))
-            } else {
-                result(.failure(HttpError.unknownError))
-            }
-        }
-        task.resume()
+func httpRequest(url: String) async throws -> Data {
+    guard let compnents = URLComponents(string: url),
+          let urlObj = compnents.url else {
+        throw HttpError.invalidURL
     }
-    .eraseToAnyPublisher()
+    
+    let (data, _) = try await URLSession.shared.data(from: urlObj)
+    return data
 }
 
 func httpRequestJson<T: Decodable>(url: String,
-                                   keyStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) -> AnyPublisher<T, Error> {
-    httpRequest(url: url)
-        .eraseToAnyPublisher()
-        .map { (data) -> T in
-            let decoder = JSONDecoder()
-            decoder.keyDecodingStrategy = keyStrategy
-            return try! decoder.decode(T.self, from: data)
-    }
-    .eraseToAnyPublisher()
+                                   keyStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys) async throws -> T {
+    let data = try await httpRequest(url: url)
+    let decoder = JSONDecoder()
+    decoder.keyDecodingStrategy = keyStrategy
+    return try! decoder.decode(T.self, from: data)
 }
 

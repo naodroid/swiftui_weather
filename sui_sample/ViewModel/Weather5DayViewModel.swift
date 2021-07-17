@@ -54,9 +54,8 @@ private func convert(_ base: Weather5Day) -> [DailyWeather] {
 //----------------------------------
 // MARK:  Main Code
 /// view model for 5day  forecast
+@MainActor
 class Weather5DayViewModel: ObservableObject {
-    //override
-    let didChange = PassthroughSubject<Weather5DayViewModel, Never>()
     //public
     let searchType: WeatherSearchType
     @Published
@@ -64,8 +63,8 @@ class Weather5DayViewModel: ObservableObject {
     @Published
     fileprivate(set) var dailyList : [DailyWeather] = []
     //private
-    private var cancellable: Cancellable?
     private let repository: WeatherRepository
+    private var task: Task.Handle<(), Never>?
     
     //
     init(searchType: WeatherSearchType, repository: WeatherRepository) {
@@ -73,8 +72,7 @@ class Weather5DayViewModel: ObservableObject {
         self.repository = repository
     }
     deinit {
-        print("DEINIT_VM")
-        self.cancellable?.cancel()
+        self.task?.cancel()
     }
     //
     func fetch() {
@@ -83,29 +81,24 @@ class Weather5DayViewModel: ObservableObject {
         }
         self.loading = true
         
-        let api: Weather5DayPublisher
-        switch self.searchType {
-        case .city(let city):
-            api = self.repository.fetch5DayForecast(city: city)
-        case .location(let lat, let lon):
-            api = self.repository.fetch5DayForecast(lat: lat, lon: lon)
+        self.task = async {
+            do {
+                let result: Weather5Day
+                switch self.searchType {
+                case .city(let city):
+                    result = try await self.repository.fetch5DayForecast(city: city)
+                case .location(let lat, let lon):
+                    result = try await self.repository.fetch5DayForecast(lat: lat, lon: lon)
+                }
+                self.dailyList = convert(result)
+            } catch {
+                //TODO: Error notification
+            }
+            self.loading = false
         }
-        
-        self.cancellable = api
-            .map(convert)
-            .onMainThread()
-            .sink(receiveCompletion: {[weak self] (_) in
-                guard let s = self else { print("RET!!");return }
-                s.loading = false
-                }, receiveValue: {[weak self] (w) in
-                    guard let s = self else { print("RET!!");return }
-                    s.loading = false
-                    s.dailyList = w
-            })
     }
     func cancel() {
         self.loading = false
-        self.cancellable?.cancel()
-        self.cancellable = nil
+        self.task?.cancel()
     }
 }

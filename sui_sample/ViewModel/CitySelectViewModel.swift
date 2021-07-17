@@ -16,10 +16,8 @@ enum CitySelectTab: Int {
     case map
 }
 
+@MainActor
 final class CitySelectViewModel: ObservableObject {
-    //override
-    let didChange = PassthroughSubject<CitySelectViewModel, Never>()
-    
     //repositories
     private let listRepository: CityListRepository
     private let locationRepository: LocationRepository
@@ -37,8 +35,6 @@ final class CitySelectViewModel: ObservableObject {
     @Published
     private(set) var pin: CLLocationCoordinate2D? = nil
     
-    
-    
     private let cancellableBag = CancellableBag()
     
     /// creation
@@ -50,25 +46,27 @@ final class CitySelectViewModel: ObservableObject {
     // MARK: exponed methods
     /// setup, call at onAppear
     func setup() {
-        self.listRepository.setup()
-        
-        self.listRepository
-            .cityList
-            .map { $0.cities }
-            .onMainThread()
-            .receive(subscriber: Subscribers.Assign(object: self, keyPath: \.cities))
-        
+        async {
+            await self.listRepository.setup()
+            for try await list in self.listRepository.cityList {
+                self.cities = list.cities
+            }
+        }
     }
     /// call at onDisappear
     func cancel() {
-        self.listRepository.cancel()
+        async {
+            await self.listRepository.cancel()
+        }
         self.locationRepository.cancel()
         self.cancellableBag.cancel()
     }
     
     /// filter cities with keywoard
     func filter(by keyword: String) {
-        self.listRepository.filter(by: keyword)
+        async {
+            await self.listRepository.filter(by: keyword)
+        }
     }
     
     func changeTab(to tab: CitySelectTab) {

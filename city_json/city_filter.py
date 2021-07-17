@@ -20,7 +20,7 @@ def reduce_cities():
                 reduced.append(k)
 
         # if you want to filter by country, use following code
-        # reduced = [city for city in cities if city["country"] == "JP"]
+        reduced = [city for city in cities if city["country"] == "JP"]
 
         print("number of cities:" + str(len(reduced)))
         with open("city_list.json", "w") as jp_file:
