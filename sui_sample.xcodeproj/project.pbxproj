@@ -41,6 +41,7 @@
 		35EB645922A910E500061C40 /* Combine+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EB645822A910E500061C40 /* Combine+Ext.swift */; };
 		35EB645B22A911F900061C40 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EB645A22A911F900061C40 /* RootView.swift */; };
 		35EB645D22A9120D00061C40 /* CitySelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EB645C22A9120D00061C40 /* CitySelectView.swift */; };
+		C63E790C26A2589A00EC5CB9 /* CoreLocationUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C63E790B26A2589A00EC5CB9 /* CoreLocationUI.framework */; };
 		C65D9D7826A25233000C94C9 /* Async+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65D9D7726A25233000C94C9 /* Async+Ext.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,7 @@
 		35EB645822A910E500061C40 /* Combine+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+Ext.swift"; sourceTree = "<group>"; };
 		35EB645A22A911F900061C40 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		35EB645C22A9120D00061C40 /* CitySelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySelectView.swift; sourceTree = "<group>"; };
+		C63E790B26A2589A00EC5CB9 /* CoreLocationUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocationUI.framework; path = System/Library/Frameworks/CoreLocationUI.framework; sourceTree = SDKROOT; };
 		C65D9D7726A25233000C94C9 /* Async+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Async+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C63E790C26A2589A00EC5CB9 /* CoreLocationUI.framework in Frameworks */,
 				35B440A522A8F09B0012D6C9 /* CoreLocation.framework in Frameworks */,
 				35DC39FB22A937AE00694DC0 /* MapKit.framework in Frameworks */,
 				35B1506C22A6571400BC52BB /* SwiftUI.framework in Frameworks */,
@@ -189,6 +192,7 @@
 		35B1506A22A6571300BC52BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C63E790B26A2589A00EC5CB9 /* CoreLocationUI.framework */,
 				35DC39FA22A937AE00694DC0 /* MapKit.framework */,
 				35B440A422A8F09B0012D6C9 /* CoreLocation.framework */,
 				35B1506B22A6571300BC52BB /* SwiftUI.framework */,

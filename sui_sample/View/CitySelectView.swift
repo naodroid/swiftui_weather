@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import CoreLocationUI
 
 /// manegement lifecycle, di and so on
 /// This is similar to Android-Fragment, so I named this as Fragment
@@ -110,25 +111,23 @@ struct CitySelectView: View {
                 Spacer().layoutPriority(1)
                 HStack {
                     Spacer()
-                    Button(action: {
+                    //I want to use .iconOnly, but it doesn't work well.
+                    //The icon-only button showed title too.
+                    LocationButton(.currentLocation) {
                         self.viewModel.startLocating()
-                    }, label: {
-                        Text("GPS")
-                    })
-                        .padding(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
-                        .background(self.theme.background)
+                    }.labelStyle(.titleOnly)
+                        .foregroundColor(Color.white)
+                        .symbolVariant(.fill)
                         .cornerRadius(8)
                     Spacer().frame(width: 8)
                 }
                 NavigationLink(destination: Weather5DayFragment(lat: self.lat, lon: self.lon)) {
-                    Text("Use Here")
-                        .foregroundColor(Color.blue)
+                    Text("Use Center")
+                        .foregroundColor(Color.white)
                 }
                 .disabled(self.viewModel.pin == nil)
                 .padding(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
-                .background(self.theme.background)
-                .cornerRadius(8)
-                .background(self.theme.background)
+                .background(Color.blue)
                 .cornerRadius(8)
                 
                 Spacer().frame(height: 20)
