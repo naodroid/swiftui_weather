@@ -1,6 +1,6 @@
-# SwiftUI + Combine Weather
+# SwiftUI + Async Weather
 
-Showing Weather forecast using SwiftUI + Combine.framework.
+Showing Weather forecast using SwiftUI + Async.
 
 Select a area, and show daily forecasts, using [OpenWeather API](https://openweathermap.org/api)
 
@@ -11,22 +11,19 @@ Select a area, and show daily forecasts, using [OpenWeather API](https://openwea
 ## Highlight of this app
 
 * SwiftUI.framework
-* Combine.framework
-  * used in network-access and state - manegemnt
+* **Async/Await**
+  * used in network access
+* Using `LocationButton / AsyncImage`, which are new APIs in iOS 15.
 * Clean Architecture
   * View - ViewModel - Repository
-* NetworkImageView
 * MKMapView with CoreLocation
-  * GPS with Combine.framework
+  * GPS with async/await
   * detect tap and add pin at tap position
-* Sample implementation of `MainThreadScheduler`
-  * but, this won't work with delay-call.
 * Adapt dark mode with asset-catalog-colors
 
 ## how to run
 
-* Install Xcode11.0 beta
-  * you need not install MacBeta (but you can't use preview)
+* Install Xcode13.0 beta
 * Build and Run
 
 By default, this app will access local-json file.  
@@ -85,7 +82,5 @@ Basic Structure
 
 ## Known issues
 
-* MainThreadScheduler won't work with delay-time
-  * when I call action() an `DispatchQueue.main.async`, nothing happens.
-* Weather5DayView causes memory-leaks
-  * I found that `List` causes it. But I can't find the way to fix this.
+* `Task.sleep` crashed, so I created a method insted.
+* Need to write cancllation code in ViewModels.
