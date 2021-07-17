@@ -80,11 +80,7 @@ private struct DailyWeatherRow: View {
                 HStack {
                     ForEach(self.list) { (item) in
                         VStack {
-                            NetworkImage(
-                                url: "https://openweathermap.org/img/w/\(item.forecasts.weather[0].icon).png",
-                                placeHolder: "blank"
-                            )
-                                .frame(width: CGFloat(50), height: CGFloat(50))
+                            AsyncImage(url: URL(string: "https://openweathermap.org/img/w/\(item.forecasts.weather[0].icon).png"))
                             Text(item.hhmm)
                                 .font(.footnote)
                         }
