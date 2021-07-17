@@ -30,6 +30,9 @@ final class CitySelectViewModel: ObservableObject {
     private(set) var cities: [City] = []
     
     @Published
+    private(set) var locating = false
+    
+    @Published
     private(set) var location: CLLocation?  = nil
     
     @Published
@@ -58,6 +61,7 @@ final class CitySelectViewModel: ObservableObject {
         async {
             await self.listRepository.cancel()
         }
+        self.locating = false
         self.locationRepository.cancel()
         self.cancellableBag.cancel()
     }
@@ -74,20 +78,18 @@ final class CitySelectViewModel: ObservableObject {
     }
     
     //
-    func startLocating() {
-        //measure once
-        self.locationRepository.location
-            .sink(receiveCompletion: { (e) in
-                print("ERROR:\(e)")
-            }) {[weak self] (loc) in
-                guard let s = self else { return }
-                s.location = loc
-                s.pin = loc.coordinate
-                s.locationRepository.cancel()
+    func fetchLocation() {
+        async {
+            self.locating = true
+            do {
+                let loc = try await self.locationRepository.fetchCurrentLocation()
+                self.location = loc
+                self.pin = loc.coordinate
+            } catch {
+                //TODO: error handling
+            }
+            self.locating = false
         }
-        .cancel(by: self.cancellableBag)
-        
-        self.locationRepository.startMeasuring()
     }
     
     func setPin(pos: CLLocationCoordinate2D) {

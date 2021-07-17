@@ -13,61 +13,53 @@ import Combine
 enum LocationError: Error {
     case serviceNotAvailable
     case permissionDenied
+    case canceled
 }
 
 protocol LocationRepository {
-    var location: AnyPublisher<CLLocation, Never> { get }
-    var error: AnyPublisher<LocationError, Never> { get }
-    func startMeasuring()
+    func fetchCurrentLocation() async throws -> CLLocation
     func cancel()
 }
 
 /// impl
+typealias LocationContinuation = CheckedContinuation<CLLocation, Error>
+
 final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocationManagerDelegate, ObservableObject {
-    //data
-    private let _location = PassthroughSubject<CLLocation, Never>()
-    var location: AnyPublisher<CLLocation, Never> {
-        self._location.eraseToAnyPublisher()
-    }
-    
-    
-    private let _error = PassthroughSubject<LocationError, Never>()
-    var error: AnyPublisher<LocationError, Never> {
-        self._error.eraseToAnyPublisher()
-    }
-    
-    
-    
     //other
     private var locationManager: CLLocationManager?
-    
+    private var continuation: LocationContinuation?
     //
-    func startMeasuring() {
-        if self.locationManager != nil {
-            return
-        }
-        if !CLLocationManager.locationServicesEnabled() {
-            self._error.send(LocationError.serviceNotAvailable)
-            return
-        }
-        
-        let mn = CLLocationManager()
+    func fetchCurrentLocation() async throws -> CLLocation {
+        let mn = self.locationManager ?? CLLocationManager()
         self.locationManager = mn
         mn.delegate = self
-        mn.startUpdatingLocation()
+        if let c = self.continuation {
+            c.resume(throwing: LocationError.canceled)
+            self.continuation = nil
+        }
+        return try await withCheckedThrowingContinuation { (continuation:  LocationContinuation) in
+            self.continuation = continuation
+            mn.requestLocation()
+        }
     }
     
     func cancel() {
         self.locationManager?.stopUpdatingLocation()
         self.locationManager = nil
+        if let c = self.continuation {
+            c.resume(throwing: LocationError.canceled)
+            self.continuation = nil
+        }
     }
     // MARK:  Delegate
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .notDetermined:
+            //If using a LocationButton, this code will not run.
             self.locationManager?.requestWhenInUseAuthorization()
         case .restricted, .denied:
-            self._error.send(LocationError.permissionDenied)
+            self.continuation?.resume(throwing: LocationError.permissionDenied)
+            self.continuation = nil
         case .authorizedAlways, .authorizedWhenInUse:
             break
         @unknown default:
@@ -78,7 +70,12 @@ final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocationMana
         guard let location = locations.first else {
             return
         }
-        self._location.send(location)
+        self.continuation?.resume(returning: location)
+        self.continuation = nil
+    }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        self.continuation?.resume(throwing: error)
+        self.continuation = nil
     }
 }
 

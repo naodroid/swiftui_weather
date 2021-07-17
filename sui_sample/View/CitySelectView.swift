@@ -114,11 +114,12 @@ struct CitySelectView: View {
                     //I want to use .iconOnly, but it doesn't work well.
                     //The icon-only button showed title too.
                     LocationButton(.currentLocation) {
-                        self.viewModel.startLocating()
+                        self.viewModel.fetchLocation()
                     }.labelStyle(.titleOnly)
                         .foregroundColor(Color.white)
                         .symbolVariant(.fill)
                         .cornerRadius(8)
+                        .disabled(self.viewModel.locating)
                     Spacer().frame(width: 8)
                 }
                 NavigationLink(destination: Weather5DayFragment(lat: self.lat, lon: self.lon)) {
@@ -131,6 +132,15 @@ struct CitySelectView: View {
                 .cornerRadius(8)
                 
                 Spacer().frame(height: 20)
+            }
+            if self.viewModel.locating {
+                ProgressView("Locating...")
+                    .progressViewStyle(
+                        CircularProgressViewStyle(tint: Color.white))
+                    .foregroundColor(Color.white)
+                    .frame(width: 120, height: 120, alignment: .center)
+                    .background(Color.black.opacity(0.5))
+                    .cornerRadius(16)
             }
         }
     }
