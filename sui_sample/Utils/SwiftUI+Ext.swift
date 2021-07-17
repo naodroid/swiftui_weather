@@ -8,7 +8,6 @@
 
 import Foundation
 import SwiftUI
-import Combine
 
 extension View {
     func maximumWidth() -> some View {
@@ -19,17 +18,3 @@ extension View {
         self.frame(minHeight: 0, idealHeight: 12000, maxHeight: 12000)
     }
 }
-
-func resignFirstResponderForCurrentView() {
-    resignFirstResponderRecursive(view: UIApplication.shared.windows[0])
-}
-private func resignFirstResponderRecursive(view: UIView) {
-    for v in view.subviews {
-        if v.isFirstResponder {
-            v.resignFirstResponder()
-            return
-        }
-        resignFirstResponderRecursive(view: v)
-    }
-}
-

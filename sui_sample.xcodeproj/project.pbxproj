@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		351FBFB522A68CBE007F9BB8 /* CancellableBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351FBFB422A68CBE007F9BB8 /* CancellableBag.swift */; };
 		356AFCCB22A617D700D472F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356AFCCA22A617D700D472F0 /* AppDelegate.swift */; };
 		356AFCCD22A617D700D472F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 356AFCCC22A617D700D472F0 /* SceneDelegate.swift */; };
 		356AFCD122A617D900D472F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 356AFCD022A617D900D472F0 /* Assets.xcassets */; };
@@ -27,7 +26,6 @@
 		35A6311322A9D49700940C06 /* Weather5DayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A6311222A9D49700940C06 /* Weather5DayViewModel.swift */; };
 		35A6311522A9D51B00940C06 /* Weather5DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A6311422A9D51B00940C06 /* Weather5DayView.swift */; };
 		35B1506C22A6571400BC52BB /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35B1506B22A6571300BC52BB /* SwiftUI.framework */; };
-		35B1507922A67CF700BC52BB /* AliasList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B1507822A67CF700BC52BB /* AliasList.swift */; };
 		35B440A322A8F08D0012D6C9 /* LocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B440A222A8F08D0012D6C9 /* LocationRepository.swift */; };
 		35B440A522A8F09B0012D6C9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35B440A422A8F09B0012D6C9 /* CoreLocation.framework */; };
 		35B440A722A8F6200012D6C9 /* CityListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B440A622A8F6200012D6C9 /* CityListRepository.swift */; };
@@ -37,8 +35,6 @@
 		35DC3A0122A9C64500694DC0 /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DC3A0022A9C64500694DC0 /* ColorTheme.swift */; };
 		35EB645322A9012200061C40 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EB645222A9012200061C40 /* City.swift */; };
 		35EB645522A906C200061C40 /* CitySelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EB645422A906C200061C40 /* CitySelectViewModel.swift */; };
-		35EB645722A90EB300061C40 /* MainThreadScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EB645622A90EB300061C40 /* MainThreadScheduler.swift */; };
-		35EB645922A910E500061C40 /* Combine+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EB645822A910E500061C40 /* Combine+Ext.swift */; };
 		35EB645B22A911F900061C40 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EB645A22A911F900061C40 /* RootView.swift */; };
 		35EB645D22A9120D00061C40 /* CitySelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EB645C22A9120D00061C40 /* CitySelectView.swift */; };
 		C63E790C26A2589A00EC5CB9 /* CoreLocationUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C63E790B26A2589A00EC5CB9 /* CoreLocationUI.framework */; };
@@ -46,7 +42,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		351FBFB422A68CBE007F9BB8 /* CancellableBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellableBag.swift; sourceTree = "<group>"; };
 		356AFCC722A617D700D472F0 /* sui_sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sui_sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		356AFCCA22A617D700D472F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		356AFCCC22A617D700D472F0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,7 +63,6 @@
 		35A6311222A9D49700940C06 /* Weather5DayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather5DayViewModel.swift; sourceTree = "<group>"; };
 		35A6311422A9D51B00940C06 /* Weather5DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather5DayView.swift; sourceTree = "<group>"; };
 		35B1506B22A6571300BC52BB /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		35B1507822A67CF700BC52BB /* AliasList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasList.swift; sourceTree = "<group>"; };
 		35B440A222A8F08D0012D6C9 /* LocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRepository.swift; sourceTree = "<group>"; };
 		35B440A422A8F09B0012D6C9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		35B440A622A8F6200012D6C9 /* CityListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListRepository.swift; sourceTree = "<group>"; };
@@ -78,8 +72,6 @@
 		35DC3A0022A9C64500694DC0 /* ColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
 		35EB645222A9012200061C40 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		35EB645422A906C200061C40 /* CitySelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySelectViewModel.swift; sourceTree = "<group>"; };
-		35EB645622A90EB300061C40 /* MainThreadScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainThreadScheduler.swift; sourceTree = "<group>"; };
-		35EB645822A910E500061C40 /* Combine+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+Ext.swift"; sourceTree = "<group>"; };
 		35EB645A22A911F900061C40 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		35EB645C22A9120D00061C40 /* CitySelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySelectView.swift; sourceTree = "<group>"; };
 		C63E790B26A2589A00EC5CB9 /* CoreLocationUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocationUI.framework; path = System/Library/Frameworks/CoreLocationUI.framework; sourceTree = SDKROOT; };
@@ -213,10 +205,6 @@
 			isa = PBXGroup;
 			children = (
 				C65D9D7726A25233000C94C9 /* Async+Ext.swift */,
-				35B1507822A67CF700BC52BB /* AliasList.swift */,
-				351FBFB422A68CBE007F9BB8 /* CancellableBag.swift */,
-				35EB645822A910E500061C40 /* Combine+Ext.swift */,
-				35EB645622A90EB300061C40 /* MainThreadScheduler.swift */,
 				358804DB22A770CD00DAD63E /* SwiftUI+Ext.swift */,
 			);
 			path = Utils;
@@ -326,20 +314,16 @@
 				35A6311522A9D51B00940C06 /* Weather5DayView.swift in Sources */,
 				356AFCE622A6248F00D472F0 /* WeatherAPI.swift in Sources */,
 				C65D9D7826A25233000C94C9 /* Async+Ext.swift in Sources */,
-				35EB645722A90EB300061C40 /* MainThreadScheduler.swift in Sources */,
 				35B440A322A8F08D0012D6C9 /* LocationRepository.swift in Sources */,
 				35DC3A0122A9C64500694DC0 /* ColorTheme.swift in Sources */,
 				358D999422A9D1FF00CB68C9 /* WeatherRepository.swift in Sources */,
 				35B440A722A8F6200012D6C9 /* CityListRepository.swift in Sources */,
 				35EB645B22A911F900061C40 /* RootView.swift in Sources */,
 				35EB645322A9012200061C40 /* City.swift in Sources */,
-				351FBFB522A68CBE007F9BB8 /* CancellableBag.swift in Sources */,
-				35EB645922A910E500061C40 /* Combine+Ext.swift in Sources */,
 				358D999622A9D31600CB68C9 /* ResourceFunctions.swift in Sources */,
 				358804DC22A770CD00DAD63E /* SwiftUI+Ext.swift in Sources */,
 				358804E222A772F800DAD63E /* HttpFunctions.swift in Sources */,
 				356AFCE322A6230800D472F0 /* Weather.swift in Sources */,
-				35B1507922A67CF700BC52BB /* AliasList.swift in Sources */,
 				357EFDFA22A9172100432774 /* TabButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

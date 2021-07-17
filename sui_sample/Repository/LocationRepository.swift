@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreLocation
-import Combine
 
 enum LocationError: Error {
     case serviceNotAvailable

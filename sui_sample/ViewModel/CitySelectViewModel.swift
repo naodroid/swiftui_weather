@@ -8,7 +8,6 @@
 
 import Foundation
 import SwiftUI
-import Combine
 import CoreLocation
 
 enum CitySelectTab: Int {
@@ -38,8 +37,6 @@ final class CitySelectViewModel: ObservableObject {
     @Published
     private(set) var pin: CLLocationCoordinate2D? = nil
     
-    private let cancellableBag = CancellableBag()
-    
     /// creation
     init(listRepository: CityListRepository, locationRepository: LocationRepository) {
         self.listRepository = listRepository
@@ -63,7 +60,6 @@ final class CitySelectViewModel: ObservableObject {
         }
         self.locating = false
         self.locationRepository.cancel()
-        self.cancellableBag.cancel()
     }
     
     /// filter cities with keywoard

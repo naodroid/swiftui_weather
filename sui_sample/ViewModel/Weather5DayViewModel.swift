@@ -8,7 +8,6 @@
 
 import Foundation
 import SwiftUI
-import Combine
 
 enum WeatherSearchType {
     case city(City)

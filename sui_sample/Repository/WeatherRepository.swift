@@ -7,14 +7,11 @@
 //
 
 import Foundation
-import Combine
-
 
 enum WeatherError: Error {
     case requestFailed
     case parseError
 }
-typealias Weather5DayPublisher = AnyPublisher<Weather5Day, Error>
 
 //--------------------------------------------
 protocol WeatherRepository {

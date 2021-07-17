@@ -5,6 +5,7 @@
 ##
 city_json/*.json
 Config.plist
+.DS_Store
 
 ## User settings
 xcuserdata/
