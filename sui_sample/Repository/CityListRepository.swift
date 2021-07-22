@@ -29,7 +29,7 @@ actor CityFilterResultSequence: AsyncSequence, AsyncIteratorProtocol {
             if Task.isCancelled {
                 return nil
             }
-            await Task.sleep(forSeconds: 0.1)
+            await Task<Void, Never>.sleep(forSeconds: 0.1)
         }
         let f = results.first!
         results = Array(results.dropFirst())
@@ -59,7 +59,7 @@ actor CityListRepositoryImpl: CityListRepository {
     
     //
     private var allCities = [City]()
-    private var lastFilterTask: Task.Handle<(), Never>?
+    private var lastFilterTask: Task<Void, Never>?
     
     /// load city list from bundle
     func setup() async {
@@ -74,7 +74,7 @@ actor CityListRepositoryImpl: CityListRepository {
     }
     func filter(by keyword: String) async {
         lastFilterTask?.cancel()
-        lastFilterTask = async {
+        lastFilterTask = Task<Void, Never> {
             await setup()
             let k = keyword.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
             let result = allCities.filter { (c) -> Bool in

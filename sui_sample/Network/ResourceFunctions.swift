@@ -16,7 +16,7 @@ func resourceRequest(fileName: String) async throws -> Data {
     guard let path = Bundle.main.path(forResource: fileName, ofType: nil) else {
         throw HttpError.invalidURL
     }
-    await Task.sleep(forSeconds: 1.0)
+    await Task<Void, Never>.sleep(forSeconds: 1.0)
     let url = URL(fileURLWithPath: path)
     guard let data = try? Data(contentsOf: url) else {
         throw HttpError.invalidURL

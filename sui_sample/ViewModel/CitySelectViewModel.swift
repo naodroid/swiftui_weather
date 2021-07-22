@@ -46,7 +46,7 @@ final class CitySelectViewModel: ObservableObject {
     // MARK: exponed methods
     /// setup, call at onAppear
     func setup() {
-        async {
+        Task {
             await self.listRepository.setup()
             for try await list in self.listRepository.cityList {
                 self.cities = list.cities
@@ -55,7 +55,7 @@ final class CitySelectViewModel: ObservableObject {
     }
     /// call at onDisappear
     func cancel() {
-        async {
+        Task {
             await self.listRepository.cancel()
         }
         self.locating = false
@@ -64,7 +64,7 @@ final class CitySelectViewModel: ObservableObject {
     
     /// filter cities with keywoard
     func filter(by keyword: String) {
-        async {
+        Task {
             await self.listRepository.filter(by: keyword)
         }
     }
@@ -75,7 +75,7 @@ final class CitySelectViewModel: ObservableObject {
     
     //
     func fetchLocation() {
-        async {
+        Task {
             self.locating = true
             do {
                 let loc = try await self.locationRepository.fetchCurrentLocation()

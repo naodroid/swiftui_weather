@@ -63,7 +63,7 @@ class Weather5DayViewModel: ObservableObject {
     fileprivate(set) var dailyList : [DailyWeather] = []
     //private
     private let repository: WeatherRepository
-    private var task: Task.Handle<(), Never>?
+    private var task: Task<Void, Never>?
     
     //
     init(searchType: WeatherSearchType, repository: WeatherRepository) {
@@ -80,7 +80,7 @@ class Weather5DayViewModel: ObservableObject {
         }
         self.loading = true
         
-        self.task = async {
+        self.task = Task<Void, Never> {
             do {
                 let result: Weather5Day
                 switch self.searchType {
