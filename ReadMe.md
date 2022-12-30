@@ -20,6 +20,7 @@ Select a area, and show daily forecasts, using [OpenWeather API](https://openwea
   * GPS with async/await
   * detect tap and add pin at tap position
 * Adapt dark mode with asset-catalog-colors
+* Use `WeatherKit` in iOS16
 
 ## how to run
 
@@ -35,6 +36,15 @@ If you want to use network-api, please do as following
 
 > city_list.json from Openweather is too big (20MB!).
 > So I shrinked it. Please check city_json/
+
+
+### WeatherKit
+
+To run iOS16 devices, you need to set up your project as follows.
+
+https://developer.apple.com/documentation/weatherkit/fetching_weather_forecasts_with_weatherkit
+
+If you don't want to use WeatherKit, please change the WeatherRepository instance in `Weather5DayFragment` class.
 
 ## file structure
 
