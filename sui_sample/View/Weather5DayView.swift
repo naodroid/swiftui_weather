@@ -21,7 +21,12 @@ struct Weather5DayFragment: View {
     }
     
     var body: some View {
-        let repository = WeatherRepositoryImpl()
+        let repository: WeatherRepository
+        if #available(iOS 16.0, *) {
+            repository = WeatherKitRepository()
+        } else {
+            repository = WeatherRepositoryImpl()
+        }
         let viewModel = Weather5DayViewModel(searchType: searchType,
                                              repository: repository)
         return Weather5DayView().environmentObject(viewModel)
@@ -80,7 +85,7 @@ private struct DailyWeatherRow: View {
                 HStack {
                     ForEach(self.list) { (item) in
                         VStack {
-                            AsyncImage(url: URL(string: "https://openweathermap.org/img/w/\(item.forecasts.weather[0].icon).png"))
+                            WeatherIcon(weather: item.forecasts.weather[0])
                             Text(item.hhmm)
                                 .font(.footnote)
                         }
@@ -96,6 +101,22 @@ private struct DailyWeatherRow: View {
         .padding(.all, 4)
     }
 }
+private struct WeatherIcon: View {
+    let weather: Weather
+    
+    var body: some View {
+        if weather.isWeatherKit {
+            //use sfsymbol
+            Image(systemName: weather.icon)
+        } else {
+            //use openweather icon
+            AsyncImage(url: URL(string: "https://openweathermap.org/img/w/\(weather.icon).png"))
+        }
+    }
+}
+
+
+//---------------------
 extension HourlyWeather: Identifiable {
     var id: String {
         return self.hhmm

@@ -40,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3555D902295F9F1A0041AF38 /* sui_sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = sui_sample.entitlements; sourceTree = "<group>"; };
 		356AFCC722A617D700D472F0 /* sui_sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sui_sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		356AFCD022A617D900D472F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		356AFCD322A617D900D472F0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -109,6 +110,7 @@
 		356AFCC922A617D700D472F0 /* sui_sample */ = {
 			isa = PBXGroup;
 			children = (
+				3555D902295F9F1A0041AF38 /* sui_sample.entitlements */,
 				35B440AA22A8F6AC0012D6C9 /* asset */,
 				356AFCDE22A61C3C00D472F0 /* Entity */,
 				356AFCE422A6248600D472F0 /* Network */,
@@ -454,9 +456,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = sui_sample/sui_sample.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "sui_sample/Preview\\ Content";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 5JHB3Z4BRX;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sui_sample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -475,9 +479,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = sui_sample/sui_sample.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "sui_sample/Preview\\ Content";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 5JHB3Z4BRX;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = sui_sample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
